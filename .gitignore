@@ -1,0 +1,14 @@
+node_modules/
+*.log
+frontend/dist/
+frontend/.vite/
+__pycache__/
+*.py[cod]
+*.sqlite3
+.venv/
+.env
+backend/staticfiles/
+backend/*.sqlite3
+.DS_Store
+.idea/
+.vscode/
