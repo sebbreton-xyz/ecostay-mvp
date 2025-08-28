@@ -28,6 +28,8 @@ backend/staticfiles/
 *.env
 *.env.*        # ex: .env.local, .env.development
 !frontend/.env.sample
+!backend/.env.example
+
 
 # --- OS / IDE ---
 .DS_Store
