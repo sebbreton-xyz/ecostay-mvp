@@ -107,12 +107,20 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
           }}
           eventHandlers={{ click: () => onMarkerClick?.(s.id) }}
         >
-          <Popup>
+          {<Popup>
             <div className="text-sm">
-              <div className="font-medium">{(s as any).title ?? (s as any).name}</div>
+              <div className="font-medium flex items-center gap-2">
+                <span>{(s as any).title ?? (s as any).name}</span>
+                {((s as any).is_demo || String((s as any).title).startsWith("[DEMO]")) && (
+                  <span className="ml-1 inline-flex items-center rounded-full border px-2 py-[2px] text-[10px] uppercase tracking-wide text-emerald-700 border-emerald-600/50 bg-emerald-50">
+                    Démo
+                  </span>
+                )}
+              </div>
               <div className="text-slate-600">{s.city ?? "Ville inconnue"}</div>
             </div>
-          </Popup>
+          </Popup>}
+
         </Marker>
       ))}
 
