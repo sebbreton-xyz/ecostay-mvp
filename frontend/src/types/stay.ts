@@ -1,3 +1,5 @@
+
+import type { Category } from "./category";
 // src/types/stay.ts
 export type Stay = {
     id: number;
@@ -9,6 +11,7 @@ export type Stay = {
     // Anticipation pour la carte (plus tard) :
     latitude?: number | null;
     longitude?: number | null;
+    categories?: Category[] | number[]; // selon ce que renvoie ton serializer DRF
     is_demo?: boolean;
     // Si l’API expose d’autres champs, on les ajoutera ici
 };

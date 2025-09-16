@@ -4,7 +4,13 @@ import type { Stay } from "@/types/stay";
 
 export async function getAllStays(): Promise<Stay[]> {
   const { data } = await api.get<Stay[]>("/stays/");
-  return data;
+  return data.map(s => ({
+    ...s,
+    // si l'API renvoie latitude/longitude, on alimente lat/lng
+    // et on garde les deux pour compat future
+    lat: (s as any).lat ?? (s as any).latitude ?? null,
+    lng: (s as any).lng ?? (s as any).longitude ?? null,
+  }));
 }
 
 export async function getStay(id: number | string): Promise<Stay> {

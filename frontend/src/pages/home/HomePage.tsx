@@ -1,13 +1,37 @@
 // src/pages/home/HomePage.tsx
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import PageHero from "@/components/PageHero";
 import StayMap from "@/components/StayMap";
 import StayCard from "@/components/StayCard";
 import { useStays } from "@/hooks/useStays";
+import { useCategories } from "@/hooks/useCategories";
+import CategoryFilter from "@/components/CategoryFilter";
+import type { Stay } from "@/types/stay";
+
+function stayHasAnyCategory(stay: Stay, selected: number[]) {
+  if (!selected.length) return true;
+  if (!stay.categories || (stay as any).categories?.length === 0) return false;
+  const catIds = (stay.categories as any[]).map((c) =>
+    typeof c === "number" ? c : c.id
+  );
+  return catIds.some((id) => selected.includes(id));
+}
 
 export default function HomePage() {
   const { data = [], isLoading, isError, error, refetch } = useStays();
+  const { data: categories = [], isLoading: loadingCats, isError: errorCats } = useCategories();
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedCats, setSelectedCats] = useState<number[]>([]);
+
+  const filtered = useMemo(
+    () => data.filter((s) => stayHasAnyCategory(s, selectedCats)),
+    [data, selectedCats]
+  );
+
+  const toggleCat = (id: number) => {
+    setSelectedCats((cur) => (cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]));
+    setSelectedId(null); // reset la sélection quand on change de filtre (optionnel)
+  };
 
   return (
     <>
@@ -40,10 +64,22 @@ export default function HomePage() {
 
         {data.length > 0 && (
           <>
-            {/* Carte (hauteur définie dans le composant) */}
+            {/* Filtres catégories */}
+            <div className="mt-4 mb-3">
+              {loadingCats && <p className="text-slate-500 text-sm">Chargement des catégories…</p>}
+              {!loadingCats && !errorCats && (
+                <CategoryFilter
+                  categories={categories}
+                  selectedIds={selectedCats}
+                  onToggle={toggleCat}
+                />
+              )}
+            </div>
+
+            {/* Carte */}
             <div className="mt-2">
               <StayMap
-                stays={data}
+                stays={filtered}
                 selectedId={selectedId}
                 onMarkerClick={(id) => setSelectedId(id)}
               />
@@ -51,19 +87,21 @@ export default function HomePage() {
 
             {/* Grille de cartes */}
             <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {data.map((stay) => (
+              {filtered.map((stay) => (
                 <StayCard
                   key={stay.id}
                   stay={stay}
                   onClick={() => setSelectedId(stay.id)}
-                  isActive={selectedId === stay.id}  
+                  isActive={selectedId === stay.id}
                 />
               ))}
+              {!filtered.length && (
+                <p className="text-slate-600">Aucun séjour ne correspond aux filtres.</p>
+              )}
             </div>
           </>
         )}
       </section>
-
       {/* A la une */}
       <section className="mx-auto max-w-7xl px-4 py-12">
         <h2 className="text-emerald-700 font-semibold text-xl mb-4">À la une</h2>
