@@ -6,12 +6,18 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
+    /* Node config file = résolution Node */
     "moduleResolution": "bundler",
+    "types": ["node"],
+
+    /* options */
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
+
+    /* Recommandé pour projets référencés (facultatif) */
+    "composite": true,
 
     /* Linting */
     "strict": true,
