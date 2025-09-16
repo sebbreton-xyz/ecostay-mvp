@@ -1,12 +1,12 @@
 // src/components/StayMap.tsx
+import { useEffect, useMemo, useRef } from "react";
+import type { RefObject } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import type { Marker as LeafletMarker } from "leaflet";
 import marker2x from "leaflet/dist/images/marker-icon-2x.png";
 import marker1x from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
-import { useEffect, useMemo, useRef } from "react";
-import type { RefObject } from "react";                 // ✅ Remplace MutableRefObject par RefObject
 import type { Stay } from "@/types/stay";
 
 // Fix icônes avec Vite
@@ -16,12 +16,6 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-// Fallback simple par ville (temporaire tant qu'on n'a pas lat/lon API)
-const cityToLatLng: Record<string, [number, number]> = {
-  Annecy: [45.899, 6.129],
-  Lyon: [45.757, 4.835],
-};
-
 type Point = Stay & { lat: number; lng: number };
 
 type Props = {
@@ -30,19 +24,31 @@ type Props = {
   onMarkerClick?: (id: number) => void;
 };
 
+/** Calcule les points à partir des seules coordonnées réelles (aucun fallback). */
 function usePoints(stays: Stay[]): Point[] {
   return useMemo(() => {
-    return stays
-      .map((s) => {
-        const lat = (s as any).latitude ?? (s.city && cityToLatLng[s.city]?.[0]);
-        const lng = (s as any).longitude ?? (s.city && cityToLatLng[s.city]?.[1]);
-        return typeof lat === "number" && typeof lng === "number" ? ({ ...s, lat, lng } as Point) : null;
+    return (stays ?? [])
+      .map((s: any) => {
+        // accepte lat/lng OU latitude/longitude ; convertit string -> number si besoin
+        const rawLat = s.lat ?? s.latitude ?? null;
+        const rawLng = s.lng ?? s.longitude ?? null;
+
+        const lat =
+          typeof rawLat === "string" ? parseFloat(rawLat) : (rawLat as number | null);
+        const lng =
+          typeof rawLng === "string" ? parseFloat(rawLng) : (rawLng as number | null);
+
+        if (typeof lat === "number" && !Number.isNaN(lat) &&
+            typeof lng === "number" && !Number.isNaN(lng)) {
+          return { ...s, lat, lng } as Point;
+        }
+        return null;
       })
       .filter(Boolean) as Point[];
   }, [stays]);
 }
 
-// 1) Ajuste la vue pour inclure tous les points (avec padding) quand la liste change
+/** 1) Ajuste la vue pour inclure tous les points (avec padding) quand la liste change. */
 function FitToAll({ points }: { points: Point[] }) {
   const map = useMap();
   useEffect(() => {
@@ -57,7 +63,7 @@ function FitToAll({ points }: { points: Point[] }) {
   return null;
 }
 
-// 2) FlyTo + openPopup sur l'élément sélectionné (ex: click d'une card)
+/** 2) FlyTo + openPopup sur l'élément sélectionné (ex: click d'une card). */
 function AutoFocusSelected({
   selectedId,
   points,
@@ -65,7 +71,7 @@ function AutoFocusSelected({
 }: {
   selectedId?: number | null;
   points: Point[];
-  markerRefs: RefObject<Record<number, LeafletMarker | null>>; // ✅ RefObject
+  markerRefs: RefObject<Record<number, LeafletMarker | null>>;
 }) {
   const map = useMap();
   useEffect(() => {
@@ -81,10 +87,12 @@ function AutoFocusSelected({
 
 export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
   const points = usePoints(stays);
-  const markerRefs = useRef<Record<number, LeafletMarker | null>>({}); // ✅ OK avec React 19 types
+  const markerRefs = useRef<Record<number, LeafletMarker | null>>({});
 
   // Centre initial si pas de points (France)
-  const initialCenter: [number, number] = points.length ? [points[0].lat, points[0].lng] : [46.5, 2.5];
+  const initialCenter: [number, number] = points.length
+    ? [points[0].lat, points[0].lng]
+    : [46.5, 2.5];
 
   return (
     <MapContainer
@@ -102,30 +110,37 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
         <Marker
           key={s.id}
           position={[s.lat, s.lng]}
-          ref={(ref: LeafletMarker | null) => {     // ✅ callback ref doit retourner void
-            markerRefs.current[s.id] = ref!;
+          ref={(ref: LeafletMarker | null) => {
+            markerRefs.current[s.id] = ref ?? null;
           }}
           eventHandlers={{ click: () => onMarkerClick?.(s.id) }}
         >
-          {<Popup>
+          <Popup>
             <div className="text-sm">
               <div className="font-medium flex items-center gap-2">
                 <span>{(s as any).title ?? (s as any).name}</span>
-                {((s as any).is_demo || String((s as any).title).startsWith("[DEMO]")) && (
+                {((s as any).is_demo ||
+                  String((s as any).title ?? "").startsWith("[DEMO]")) && (
                   <span className="ml-1 inline-flex items-center rounded-full border px-2 py-[2px] text-[10px] uppercase tracking-wide text-emerald-700 border-emerald-600/50 bg-emerald-50">
                     Démo
                   </span>
                 )}
               </div>
-              <div className="text-slate-600">{s.city ?? "Ville inconnue"}</div>
+              <div className="text-slate-600">{(s as any).city ?? "Ville inconnue"}</div>
+              {(s as any).price && (
+                <div className="text-slate-700 mt-1">{(s as any).price} €</div>
+              )}
             </div>
-          </Popup>}
-
+          </Popup>
         </Marker>
       ))}
 
       <FitToAll points={points} />
-      <AutoFocusSelected selectedId={selectedId} points={points} markerRefs={markerRefs} />
+      <AutoFocusSelected
+        selectedId={selectedId}
+        points={points}
+        markerRefs={markerRefs}
+      />
     </MapContainer>
   );
 }

@@ -10,12 +10,15 @@ import type { Stay } from "@/types/stay";
 
 function stayHasAnyCategory(stay: Stay, selected: number[]) {
   if (!selected.length) return true;
-  if (!stay.categories || (stay as any).categories?.length === 0) return false;
-  const catIds = (stay.categories as any[]).map((c) =>
-    typeof c === "number" ? c : c.id
-  );
-  return catIds.some((id) => selected.includes(id));
+
+  // Le backend renvoie "category" (FK) : soit un id, soit un objet
+  const cat = (stay as any).category;
+  if (!cat) return false;
+
+  const catId = typeof cat === "number" ? cat : cat.id;
+  return selected.includes(catId);
 }
+
 
 export default function HomePage() {
   const { data = [], isLoading, isError, error, refetch } = useStays();
@@ -39,9 +42,7 @@ export default function HomePage() {
 
       {/* Carte + liste */}
       <section className="mx-auto max-w-7xl px-4">
-        {isLoading && (
-          <p className="text-slate-600">Chargement des séjours…</p>
-        )}
+        {isLoading && <p className="text-slate-600">Chargement des séjours…</p>}
 
         {isError && (
           <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
@@ -56,26 +57,30 @@ export default function HomePage() {
           </div>
         )}
 
-        {!isLoading && !isError && data.length === 0 && (
+        {/* 👉 Filtre visible même si la liste est vide */}
+        <div className="mt-4 mb-3">
+          {loadingCats && (
+            <p className="text-slate-500 text-sm">Chargement des catégories…</p>
+          )}
+          {!loadingCats && !errorCats && (
+            <CategoryFilter
+              categories={categories}
+              selectedIds={selectedCats}
+              onToggle={toggleCat}
+            />
+          )}
+        </div>
+
+        {/* État vide (après chargement, pas d’erreur, et aucun séjour après filtre) */}
+        {!isLoading && !isError && filtered.length === 0 && (
           <div className="h-[360px] w-full rounded-xl overflow-hidden bg-slate-200 flex items-center justify-center text-slate-500">
             Aucun séjour disponible pour le moment.
           </div>
         )}
 
-        {data.length > 0 && (
+        {/* Carte + grille seulement si on a au moins un séjour après filtrage */}
+        {filtered.length > 0 && (
           <>
-            {/* Filtres catégories */}
-            <div className="mt-4 mb-3">
-              {loadingCats && <p className="text-slate-500 text-sm">Chargement des catégories…</p>}
-              {!loadingCats && !errorCats && (
-                <CategoryFilter
-                  categories={categories}
-                  selectedIds={selectedCats}
-                  onToggle={toggleCat}
-                />
-              )}
-            </div>
-
             {/* Carte */}
             <div className="mt-2">
               <StayMap
@@ -95,13 +100,11 @@ export default function HomePage() {
                   isActive={selectedId === stay.id}
                 />
               ))}
-              {!filtered.length && (
-                <p className="text-slate-600">Aucun séjour ne correspond aux filtres.</p>
-              )}
             </div>
           </>
         )}
       </section>
+
       {/* A la une */}
       <section className="mx-auto max-w-7xl px-4 py-12">
         <h2 className="text-emerald-700 font-semibold text-xl mb-4">À la une</h2>
