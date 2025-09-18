@@ -1,19 +1,28 @@
 // src/components/StayMap.tsx
 import { useEffect, useMemo, useRef } from "react";
 import type { RefObject } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
 import L from "leaflet";
 import type { Marker as LeafletMarker } from "leaflet";
-import marker2x from "leaflet/dist/images/marker-icon-2x.png";
-import marker1x from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import type { Stay } from "@/types/stay";
 
-// Fix icônes avec Vite
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: marker2x,
-  iconUrl: marker1x,
-  shadowUrl: markerShadow,
+// ✅ Icône rond vert avec contour blanc
+const greenCircleIcon = L.icon({
+  iconUrl: `data:image/svg+xml;utf8,
+    <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'>
+      <circle cx='20' cy='20' r='16'
+        fill='%23059669' stroke='white' stroke-width='4'/>
+    </svg>`,
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],   // bas-centre
+  popupAnchor: [0, -40],  // popup juste au-dessus
 });
 
 type Point = Stay & { lat: number; lng: number };
@@ -29,7 +38,6 @@ function usePoints(stays: Stay[]): Point[] {
   return useMemo(() => {
     return (stays ?? [])
       .map((s: any) => {
-        // accepte lat/lng OU latitude/longitude ; convertit string -> number si besoin
         const rawLat = s.lat ?? s.latitude ?? null;
         const rawLng = s.lng ?? s.longitude ?? null;
 
@@ -38,8 +46,12 @@ function usePoints(stays: Stay[]): Point[] {
         const lng =
           typeof rawLng === "string" ? parseFloat(rawLng) : (rawLng as number | null);
 
-        if (typeof lat === "number" && !Number.isNaN(lat) &&
-            typeof lng === "number" && !Number.isNaN(lng)) {
+        if (
+          typeof lat === "number" &&
+          !Number.isNaN(lat) &&
+          typeof lng === "number" &&
+          !Number.isNaN(lng)
+        ) {
           return { ...s, lat, lng } as Point;
         }
         return null;
@@ -48,7 +60,7 @@ function usePoints(stays: Stay[]): Point[] {
   }, [stays]);
 }
 
-/** 1) Ajuste la vue pour inclure tous les points (avec padding) quand la liste change. */
+/** Ajuste la vue pour inclure tous les points (avec padding) quand la liste change. */
 function FitToAll({ points }: { points: Point[] }) {
   const map = useMap();
   useEffect(() => {
@@ -63,7 +75,7 @@ function FitToAll({ points }: { points: Point[] }) {
   return null;
 }
 
-/** 2) FlyTo + openPopup sur l'élément sélectionné (ex: click d'une card). */
+/** FlyTo + openPopup sur l'élément sélectionné (ex: click d'une card). */
 function AutoFocusSelected({
   selectedId,
   points,
@@ -85,6 +97,22 @@ function AutoFocusSelected({
   return null;
 }
 
+/** Active le zoom à la molette uniquement quand la souris survole la carte. */
+function HoverWheelZoom() {
+  const map = useMap();
+
+  useMapEvents({
+    mouseover() {
+      map.scrollWheelZoom.enable();
+    },
+    mouseout() {
+      map.scrollWheelZoom.disable();
+    },
+  });
+
+  return null;
+}
+
 export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
   const points = usePoints(stays);
   const markerRefs = useRef<Record<number, LeafletMarker | null>>({});
@@ -99,7 +127,7 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
       center={initialCenter}
       zoom={6}
       className="h-80 w-full rounded-xl border"
-      scrollWheelZoom={false}
+      scrollWheelZoom={false} // désactivé par défaut
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -110,6 +138,7 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
         <Marker
           key={s.id}
           position={[s.lat, s.lng]}
+          icon={greenCircleIcon} // ✅ icône personnalisée
           ref={(ref: LeafletMarker | null) => {
             markerRefs.current[s.id] = ref ?? null;
           }}
@@ -126,7 +155,9 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
                   </span>
                 )}
               </div>
-              <div className="text-slate-600">{(s as any).city ?? "Ville inconnue"}</div>
+              <div className="text-slate-600">
+                {(s as any).city ?? "Ville inconnue"}
+              </div>
               {(s as any).price && (
                 <div className="text-slate-700 mt-1">{(s as any).price} €</div>
               )}
@@ -141,6 +172,9 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
         points={points}
         markerRefs={markerRefs}
       />
+
+      {/* 👉 Active/désactive la molette selon le survol */}
+      <HoverWheelZoom />
     </MapContainer>
   );
 }

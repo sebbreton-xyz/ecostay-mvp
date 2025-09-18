@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="border-b bg-white">
-      <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-6">
+      <div className="mx-auto w-full max-w-screen-2xl px-6 py-3 flex items-center gap-6">
         <Link to="/" className="font-semibold text-emerald-700">EcoStay</Link>
 
         <nav className="hidden md:flex items-center gap-2 relative">
@@ -23,9 +23,8 @@ export default function Header() {
             >
               <Link
                 to={item.path}
-                className={`px-3 py-2 rounded hover:bg-slate-100 ${
-                  pathname.startsWith(item.path) ? "text-emerald-700 font-medium" : ""
-                }`}
+                className={`px-3 py-2 rounded hover:bg-slate-100 ${pathname.startsWith(item.path) ? "text-emerald-700 font-medium" : ""
+                  }`}
               >
                 {item.label}
               </Link>
