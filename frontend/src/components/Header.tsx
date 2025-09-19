@@ -10,7 +10,7 @@ export default function Header() {
 
   return (
     <header className="border-b bg-white">
-      <div className="mx-auto w-full max-w-screen-2xl px-6 py-3 flex items-center gap-6">
+      <div className="app-container py-3 flex items-center justify-between">
         <Link to="/" className="font-semibold text-emerald-700">EcoStay</Link>
 
         <nav className="hidden md:flex items-center gap-2 relative">

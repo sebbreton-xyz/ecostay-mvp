@@ -7,6 +7,10 @@ import { useStays } from "@/hooks/useStays";
 import { useCategories } from "@/hooks/useCategories";
 import CategoryFilter from "@/components/CategoryFilter";
 import type { Stay } from "@/types/stay";
+import FeaturedStory from "@/components/FeaturedStory";
+import menhir from "@/assets/bretagne/cabane-menhir.png";
+import ensoleillee from "@/assets/bretagne/cabane-ensoleillee.png";
+import MissionTeaser from "@/components/MissionTeaser";
 
 function stayHasAnyCategory(stay: Stay, selected: number[]) {
   if (!selected.length) return true;
@@ -151,26 +155,40 @@ export default function HomePage() {
       )}
 
       {/* À la une */}
-      <section className="mx-auto w-full max-w-screen-2xl px-6 py-12">
-        <h2 className="text-emerald-700 font-semibold text-xl mb-4">À la une</h2>
-        <div className="grid md:grid-cols-[1fr_280px] gap-8">
-          <p className="text-slate-600 leading-relaxed">
-            Texte éditorial (placeholder) — présentation d’un séjour ou d’une initiative.
-          </p>
-          <div className="aspect-video rounded-xl bg-slate-200" />
+      <FeaturedStory
+        title="Dormir comme il y a 6 000 ans — Cabane néolithique en Bretagne"
+        chapo="Dans les Monts d’Arrée, Lila et Maël ont rebâti une cabane de roseaux, noisetier et torchis. Une nuit ici, c’est le souffle de l’ouest, la bruyère en fleur, et le feu qui rassemble — comme autrefois."
+        cta={{ label: "Découvrir la cabane", href: "/decouverte/dormir-autrement" }}
+        hero={{
+          src: menhir,
+          alt: "Cabane néolithique sur la lande des Monts d’Arrée, parois en noisetier tressé, toit de roseaux, menhir dans la brume.",
+          caption: "Cabane néolithique reconstruite en Bretagne — noisetier tressé, torchis d’argile, toit de roseaux, sur la lande des Monts d’Arrée.",
+        }}
+        secondary={{
+          src: ensoleillee,
+          alt: "Groupe souriant tressant les parois en noisetier devant une cabane néolithique, lande bretonne ensoleillée."
+        }}
+      />
+
+      <MissionTeaser />
+      {/* Notre mission */}
+      <section className="mx-auto max-w-7xl px-4 pb-16">
+        <h2 className="text-xl font-semibold text-emerald-700">Chiffres clés</h2>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { k: "3", d: "piliers (sobriété, local, transparence)" },
+            { k: "6", d: "engagements concrets" },
+            { k: "2025", d: "déploiement des scores publics" },
+            { k: "100%", d: "données sourçables et explicables" },
+          ].map(({ k, d }) => (
+            <div key={k} className="rounded-xl border p-5 bg-white">
+              <div className="text-3xl font-semibold text-emerald-700">{k}</div>
+              <div className="text-sm text-slate-600">{d}</div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Notre mission */}
-      <section className="mx-auto w-full max-w-screen-2xl px-6 pb-16">
-        <h2 className="text-emerald-700 font-semibold text-xl mb-4">Notre mission</h2>
-        <div className="grid md:grid-cols-[1fr_280px] gap-8 items-start">
-          <p className="text-slate-600 leading-relaxed">
-            Texte long sur la mission EcoStay (placeholder).
-          </p>
-          <div className="aspect-[4/3] rounded-xl bg-slate-200" />
-        </div>
-      </section>
     </>
   );
 }
