@@ -21,8 +21,8 @@ const greenCircleIcon = L.icon({
         fill='%23059669' stroke='white' stroke-width='4'/>
     </svg>`,
   iconSize: [40, 40],
-  iconAnchor: [20, 40],   // bas-centre
-  popupAnchor: [0, -40],  // popup juste au-dessus
+  iconAnchor: [20, 40],
+  popupAnchor: [0, -40],
 });
 
 type Point = Stay & { lat: number; lng: number };
@@ -100,16 +100,25 @@ function AutoFocusSelected({
 /** Active le zoom à la molette uniquement quand la souris survole la carte. */
 function HoverWheelZoom() {
   const map = useMap();
-
   useMapEvents({
-    mouseover() {
-      map.scrollWheelZoom.enable();
-    },
-    mouseout() {
-      map.scrollWheelZoom.disable();
-    },
+    mouseover() { map.scrollWheelZoom.enable(); },
+    mouseout() { map.scrollWheelZoom.disable(); },
   });
+  return null;
+}
 
+/** Force Leaflet à recalculer sa taille quand le conteneur change. */
+function ResizeHandler() {
+  const map = useMap();
+  useEffect(() => {
+    // au montage
+    map.invalidateSize();
+    // et à chaque resize du conteneur
+    const el = map.getContainer();
+    const ro = new ResizeObserver(() => map.invalidateSize());
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [map]);
   return null;
 }
 
@@ -126,8 +135,8 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
     <MapContainer
       center={initialCenter}
       zoom={6}
-      className="h-80 w-full rounded-xl border"
-      scrollWheelZoom={false} // désactivé par défaut
+      className="w-full h-full"      // ⬅️ remplit le parent carré
+      scrollWheelZoom={false}        // activé/désactivé au survol
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -138,11 +147,14 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
         <Marker
           key={s.id}
           position={[s.lat, s.lng]}
-          icon={greenCircleIcon} // ✅ icône personnalisée
+          icon={greenCircleIcon}
           ref={(ref: LeafletMarker | null) => {
             markerRefs.current[s.id] = ref ?? null;
           }}
-          eventHandlers={{ click: () => onMarkerClick?.(s.id) }}
+          eventHandlers={{
+            // pas de map._map ici → on se contente de signaler l'id
+            click: () => onMarkerClick?.(s.id),
+          }}
         >
           <Popup>
             <div className="text-sm">
@@ -150,10 +162,10 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
                 <span>{(s as any).title ?? (s as any).name}</span>
                 {((s as any).is_demo ||
                   String((s as any).title ?? "").startsWith("[DEMO]")) && (
-                  <span className="ml-1 inline-flex items-center rounded-full border px-2 py-[2px] text-[10px] uppercase tracking-wide text-emerald-700 border-emerald-600/50 bg-emerald-50">
-                    Démo
-                  </span>
-                )}
+                    <span className="ml-1 inline-flex items-center rounded-full border px-2 py-[2px] text-[10px] uppercase tracking-wide text-emerald-700 border-emerald-600/50 bg-emerald-50">
+                      Démo
+                    </span>
+                  )}
               </div>
               <div className="text-slate-600">
                 {(s as any).city ?? "Ville inconnue"}
@@ -167,14 +179,9 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
       ))}
 
       <FitToAll points={points} />
-      <AutoFocusSelected
-        selectedId={selectedId}
-        points={points}
-        markerRefs={markerRefs}
-      />
-
-      {/* 👉 Active/désactive la molette selon le survol */}
+      <AutoFocusSelected selectedId={selectedId} points={points} markerRefs={markerRefs} />
       <HoverWheelZoom />
+      <ResizeHandler />
     </MapContainer>
   );
 }
