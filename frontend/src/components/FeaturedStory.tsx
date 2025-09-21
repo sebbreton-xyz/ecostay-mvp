@@ -33,13 +33,13 @@ export default function FeaturedStory({
                             <Link
                                 to={cta.href}
                                 className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2
-                           font-medium text-white no-underline hover:bg-emerald-700
-                           focus-visible:outline-none focus-visible:ring-2
-                           focus-visible:ring-emerald-600 focus-visible:ring-offset-2
-                           !text-white visited:!text-white hover:!text-white active:!text-white"
+             font-medium text-white no-underline hover:bg-emerald-700
+             focus-visible:outline-none focus-visible:ring-2
+             focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
                             >
                                 {cta.label}
                             </Link>
+
                         </div>
                     )}
                 </div>
