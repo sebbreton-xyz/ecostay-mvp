@@ -7,6 +7,7 @@ import HomePage from "@/pages/home/HomePage";
 import DecouverteIndex from "@/pages/decouverte/Index";
 import DormirAutrement from "@/pages/decouverte/DormirAutrement";
 import ExperiencesLocales from "@/pages/decouverte/ExperiencesLocales";
+import ExperienceArticle from "@/pages/decouverte/ExperienceArticle";
 import PartenairesEngages from "@/pages/decouverte/PartenairesEngages";
 
 // Impact
@@ -31,6 +32,7 @@ export const router = createBrowserRouter([
       { path: "/decouverte", element: <DecouverteIndex /> },
       { path: "/decouverte/dormir-autrement", element: <DormirAutrement /> },
       { path: "/decouverte/experiences-locales", element: <ExperiencesLocales /> },
+      { path: "/decouverte/experiences-locales/:slug", element: <ExperienceArticle /> },
       { path: "/decouverte/partenaires-engages", element: <PartenairesEngages /> },
 
       { path: "/impact", element: <ImpactIndex /> },

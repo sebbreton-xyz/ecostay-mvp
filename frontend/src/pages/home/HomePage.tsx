@@ -8,9 +8,9 @@ import FeaturedStory from "@/components/FeaturedStory";
 import MissionTeaser from "@/components/MissionTeaser";
 import logo from "@/assets/Logo.png";
 import favicon from "@/assets/Favicon.png";
-import menhir from "@/assets/bretagne/cabane-menhir.png";
-import ensoleillee from "@/assets/bretagne/cabane-ensoleillee.png";
 import campagne from "@/assets/Campagne.jpg";
+// NEW: brancher la Home sur la même source éditoriale
+import { getFeaturedLocalStory } from "@/content/localStories";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -49,6 +49,9 @@ export default function HomePage() {
 
   const highlights = stays.slice(0, 6);
 
+  // NEW: récupère l'article à la une depuis la même source que "Expériences locales"
+  const featured = getFeaturedLocalStory();
+
   return (
     <>
       {/* ===== HERO full-bleed (haut carré, bas arrondi) ===== */}
@@ -68,31 +71,19 @@ export default function HomePage() {
             <Link
               to="/"
               className="absolute z-20 top-0 left-2 sm:top-1 sm:left-3 md:top-2 md:left-6
-             w-1/4 sm:w-1/5 md:w-1/5 lg:w-1/6    /* plus large qu'avant */
-             max-w-[360px] min-w-[96px]"         /* bornes de sécurité */
+             w-1/4 sm:w-1/5 md:w-1/5 lg:w-1/6
+             max-w-[360px] min-w-[96px]"
             >
               <img src={logo} alt="EcoStay" className="w-full h-auto" />
             </Link>
 
-            {/* Décor : Favicon géant à droite, calé sur la hauteur du hero */}
+            {/* Décor : Favicon géant à droite */}
             <img
               src={favicon}
               alt=""
               aria-hidden="true"
-              className="
-    pointer-events-none select-none
-    absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2
-    hidden sm:block                 /* <-- xs supprimé */
-    z-20                            /* au-dessus du voile de bas de hero */
-    h-[58%] sm:h-[64%] md:h-[78%] lg:h-[85%]
-    w-auto
-    opacity-90 drop-shadow-xl
-  "
+              className="pointer-events-none select-none absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2 hidden sm:block z-20 h-[58%] sm:h-[64%] md:h-[78%] lg:h-[85%] w-auto opacity-90 drop-shadow-xl"
             />
-
-
-
-
 
             {/* voile de lisibilité sur la moitié basse */}
             <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-white/75" />
@@ -101,21 +92,14 @@ export default function HomePage() {
             <div className="absolute inset-0 grid grid-rows-[1fr_auto]">
               {/* rangée 1 : bloc titre+recherche */}
               <div className="flex items-end justify-center px-6">
-                {/* pousse un peu le groupe vers le haut si tu veux */}
                 <div className="w-full max-w-3xl text-center pb-4 md:pb-6 relative -translate-y-4 md:-translate-y-8">
-                  {/* conteneur vertical avec hauteur fixe -> la phrase restera au milieu */}
                   <div className="flex flex-col items-center justify-between min-h-[160px] md:min-h-[190px] lg:min-h-[210px]">
-                    {/* Titre en haut du bloc */}
                     <h1 className="text-slate-900 text-2xl md:text-4xl font-semibold">
                       La référence du séjour alternatif
                     </h1>
-
-                    {/* Baseline centrée verticalement entre le titre et le form */}
                     <p className="text-sm md:text-base text-slate-700">
                       <span className="baseline-shimmer">Prêt·e à partir ? Voyagez autrement.</span>
                     </p>
-
-                    {/* Barre de recherche en bas du bloc */}
                     <form onSubmit={onSubmit} className="w-full flex gap-2">
                       <input
                         value={query}
@@ -135,7 +119,6 @@ export default function HomePage() {
                 </div>
               </div>
 
-
               {/* rangée 2 : étiquettes collées en bas */}
               <div className="px-4 md:px-8 pb-3">
                 <div className="mx-auto max-w-screen-2xl">
@@ -143,12 +126,8 @@ export default function HomePage() {
                     {(loadingCats ? [] : topCats).map((c: any) => (
                       <Link
                         key={c.id}
-                        to={`/decouverte/dormir-autrement?category=${encodeURIComponent(
-                          c.slug
-                        )}`}
-                        className="whitespace-nowrap rounded-full px-3 py-1.5 text-sm
-                                   bg-white text-slate-800 shadow-xl ring-1 ring-black/5
-                                   backdrop-blur hover:-translate-y-0.5 transition"
+                        to={`/decouverte/dormir-autrement?category=${encodeURIComponent(c.slug)}`}
+                        className="whitespace-nowrap rounded-full px-3 py-1.5 text-sm bg-white text-slate-800 shadow-xl ring-1 ring-black/5 backdrop-blur hover:-translate-y-0.5 transition"
                       >
                         {c.name_fr || c.name_en || c.slug}
                       </Link>
@@ -173,10 +152,7 @@ export default function HomePage() {
       <section className="mx-auto w-full max-w-screen-2xl px-6 mt-2">
         <div className="mb-2 flex items-center justify-between">
           <h2 className="text-lg md:text-xl font-semibold">Séjours à la une</h2>
-          <Link
-            to="/decouverte/dormir-autrement"
-            className="text-sm text-emerald-700 hover:underline"
-          >
+          <Link to="/decouverte/dormir-autrement" className="text-sm text-emerald-700 hover:underline">
             Voir tous les séjours
           </Link>
         </div>
@@ -184,9 +160,7 @@ export default function HomePage() {
         {isLoading ? (
           <p className="text-slate-600">Chargement…</p>
         ) : highlights.length === 0 ? (
-          <div className="rounded-xl bg-slate-100 p-6 text-slate-600">
-            Bientôt des séjours ici !
-          </div>
+          <div className="rounded-xl bg-slate-100 p-6 text-slate-600">Bientôt des séjours ici !</div>
         ) : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {highlights.map((stay) => (
@@ -198,15 +172,12 @@ export default function HomePage() {
 
       {/* ===== Édito & Mission ===== */}
       <FeaturedStory
-        title="Dormir comme il y a 6 000 ans — Cabane néolithique en Bretagne"
-        chapo="Dans les Monts d’Arrée, Lila et Maël ont rebâti une cabane de roseaux, noisetier et torchis."
-        cta={{ label: "Découvrir la cabane", href: "/decouverte/dormir-autrement" }}
-        hero={{
-          src: menhir,
-          alt: "Cabane néolithique sur la lande des Monts d’Arrée.",
-          caption: "Cabane néolithique reconstruite en Bretagne.",
-        }}
-        secondary={{ src: ensoleillee, alt: "Atelier participatif en plein air." }}
+        kicker={featured.kicker ?? "À la une"}
+        title={featured.title}
+        chapo={featured.chapo}
+        cta={featured.cta}
+        hero={featured.hero}
+        secondary={featured.secondary}
       />
 
       <MissionTeaser />
