@@ -45,3 +45,12 @@ Thumbs.db
 *.sln
 *.sw?
 /backend/.vscode-shellrc
+
+# --- EcoStay: assets temporaires / metadata OS ---
+*:Zone.Identifier
+*:zone.identifier
+*~*.TMP
+frontend/src/assets/Campagne2.jpg
+frontend/src/assets/Campagne3.jpg
+frontend/src/assets/Campagne4.jpg
+frontend/src/assets/Favicon2.png

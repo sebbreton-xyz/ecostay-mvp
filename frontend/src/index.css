@@ -5,14 +5,57 @@
 
 /* Tes utilitaires globaux */
 @layer components {
-  .app-container { @apply mx-auto w-full max-w-screen-2xl px-6; }
-  .app-section   { @apply py-10; }
-  .app-section-lg{ @apply py-12 md:py-16; }
+  .app-container {
+    @apply mx-auto w-full max-w-screen-2xl px-6;
+  }
+
+  .app-section {
+    @apply py-10;
+  }
+
+  .app-section-lg {
+    @apply py-12 md:py-16;
+  }
 }
 
-/* (optionnel) quelques resets “sains” si tu veux, sinon supprime tout le reste */
+/* (optionnel) quelques resets “sains” sinon supprimer tout le reste */
 :root {
   color-scheme: light;
 }
 
+.scrollbar-stable { scrollbar-gutter: stable both-edges; }
 
+/* --- Shimmer text (balayage lumineux discret) --- */
+@keyframes ecoShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Shimmer lisible (base #334155) */
+.baseline-shimmer {
+  background-image: linear-gradient(90deg,
+      #334155 0%,
+      #334155 48%,
+      rgba(255, 255, 255, 0.9) 50%,
+      #334155 52%,
+      #334155 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* on “voit” le dégradé à la place du texte */
+  animation: ecoShimmer 4.8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .baseline-shimmer {
+    animation: none;
+    background-image: none;
+    color: #334155;
+  }
+}

@@ -1,248 +1,216 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import PageHero from "@/components/PageHero";
-import StayMap from "@/components/StayMap";
-import StayCard from "@/components/StayCard";
+// src/pages/home/HomePage.tsx
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useStays } from "@/hooks/useStays";
 import { useCategories } from "@/hooks/useCategories";
-import CategoryFilter from "@/components/CategoryFilter";
-import type { Stay } from "@/types/stay";
+import StayCard from "@/components/StayCard";
 import FeaturedStory from "@/components/FeaturedStory";
+import MissionTeaser from "@/components/MissionTeaser";
+import logo from "@/assets/Logo.png";
+import favicon from "@/assets/Favicon.png";
 import menhir from "@/assets/bretagne/cabane-menhir.png";
 import ensoleillee from "@/assets/bretagne/cabane-ensoleillee.png";
-import MissionTeaser from "@/components/MissionTeaser";
-
-type ViewMode = "list" | "map";
-
-function stayHasAnyCategory(stay: Stay, selected: number[]) {
-  if (!selected.length) return true;
-  const cat = (stay as any).category;
-  if (!cat) return false;
-  const catId = typeof cat === "number" ? cat : cat.id;
-  return selected.includes(catId);
-}
+import campagne from "@/assets/Campagne.jpg";
 
 export default function HomePage() {
-  const { data = [], isLoading, isError, error, refetch } = useStays();
-  const {
-    data: categories = [],
-    isLoading: loadingCats,
-    isError: errorCats,
-  } = useCategories();
+  const navigate = useNavigate();
+  const { data: stays = [], isLoading } = useStays();
+  const { data: categories = [], isLoading: loadingCats } = useCategories();
+  const topCats = categories.slice(0, 16);
+  const [query, setQuery] = useState("");
 
-  const [selectedId, setSelectedId] = useState<number | null>(null);
-  const [selectedCats, setSelectedCats] = useState<number[]>([]);
-  const [view, setView] = useState<ViewMode>(() =>
-    window.innerWidth < 768 ? "list" : "list"
-  );
+  // même normalisation que /DormirAutrement + backend
+  const normalizeQuery = (s: string) =>
+    s
+      ?.normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      ?.replace(/\bqu'\s*/gi, "")
+      ?.replace(/\b[ldjtnsmc]'\s*/gi, "")
+      ?.replace(/[’'`]\s*/g, "")
+      ?.replace(/[—–-]/g, " ")
+      ?.toLowerCase()
+      ?.trim()
+      ?.replace(/\s+/g, " ") || undefined;
 
-  // distinguer l’origine de la sélection (map vs liste)
-  const lastOriginRef = useRef<"map" | "list" | null>(null);
-  const selectFromMap = (id: number) => {
-    lastOriginRef.current = "map";
-    setSelectedId(id);
-  };
-  const selectFromList = (id: number) => {
-    lastOriginRef.current = "list";
-    setSelectedId(id);
-  };
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const raw = query.trim();
+    const q = normalizeQuery(raw);
+    const params = new URLSearchParams();
+    if (q) params.set("q", q);
 
-  // scrollIntoView UNIQUEMENT si la sélection vient de la carte
-  const cardRefs = useRef<Record<number, HTMLDivElement | null>>({});
-  useEffect(() => {
-    if (!selectedId) return;
-    if (lastOriginRef.current !== "map") return;
-    const el = cardRefs.current[selectedId];
-    if (el && view === "list") el.scrollIntoView({ block: "center", behavior: "smooth" });
-    lastOriginRef.current = null;
-  }, [selectedId, view]);
+    const compact = raw.replace(/\s+/g, "");
+    if (/^\d{5}$/.test(compact)) params.set("postal_code", compact);
+    else if (/^(?:\d{2}|2a|2b)$/i.test(compact))
+      params.set("department", compact.toUpperCase());
 
-  const filtered = useMemo(
-    () => data.filter((s) => stayHasAnyCategory(s, selectedCats)),
-    [data, selectedCats]
-  );
-  const count = filtered.length;
-
-  const toggleCat = (id: number) => {
-    setSelectedCats((cur) =>
-      cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]
-    );
-    setSelectedId(null);
+    navigate(`/decouverte/dormir-autrement?${params.toString()}`);
   };
 
-  // taille carrée de la carte, même hauteur pour la liste
-  const mapBoxRef = useRef<HTMLDivElement | null>(null);
-  const [mapHeight, setMapHeight] = useState<number>(0);
-
-  // hauteur de secours si la mesure n’est pas encore arrivée
-  const fallbackHeight = useMemo(() => {
-    if (typeof window === "undefined") return 480;
-    return Math.max(window.innerHeight - 160, 360);
-  }, []);
-
-  useEffect(() => {
-    const el = mapBoxRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver((entries) => {
-      for (const e of entries) setMapHeight(e.contentRect.height);
-    });
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+  const highlights = stays.slice(0, 6);
 
   return (
     <>
-      <PageHero />
-
-      {/* Barre de recherche entre le bandeau et la carte (placeholder) */}
-      <section className="mx-auto w-full max-w-screen-2xl px-6">
-        <div className="relative">
-          <input
-            placeholder="Rechercher…"
-            className="w-full rounded-xl border px-4 py-2"
-          />
-        </div>
-      </section>
-
-      {/* Zone chargement/erreur + filtres catégories */}
-      <section className="mx-auto w-full max-w-screen-2xl px-6">
-        {isLoading && <p className="text-slate-600">Chargement des séjours…</p>}
-
-        {isError && (
-          <div className="mt-4 rounded-xl border border-red-200 bg-red-50 p-4 text-red-700">
-            <p className="font-medium">Impossible de charger les séjours.</p>
-            <p className="text-sm opacity-80">Détail : {error?.message}</p>
-            <button
-              className="mt-3 rounded-lg border px-3 py-1 text-sm"
-              onClick={() => refetch()}
-            >
-              Réessayer
-            </button>
-          </div>
-        )}
-
-        <div className="mt-4 mb-3">
-          {loadingCats && (
-            <p className="text-slate-500 text-sm">Chargement des catégories…</p>
-          )}
-          {!loadingCats && !errorCats && (
-            <CategoryFilter
-              categories={categories}
-              selectedIds={selectedCats}
-              onToggle={toggleCat}
+      {/* ===== HERO full-bleed (haut carré, bas arrondi) ===== */}
+      <section className="relative">
+        {/* bande pleine largeur */}
+        <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
+          {/* conteneur visuel */}
+          <div className="relative min-h-[270px] md:h-[39vh] overflow-hidden border-y md:rounded-b-3xl">
+            {/* image entière, collée en haut */}
+            <img
+              src={campagne}
+              alt=""
+              className="absolute inset-0 h-full w-full object-cover object-top bg-gradient-to-b from-emerald-50 to-sky-50"
             />
-          )}
-        </div>
-      </section>
 
-      {/* Empty state */}
-      {!isLoading && !isError && count === 0 && (
-        <section className="mx-auto w-full max-w-screen-2xl px-6">
-          <div className="h-[360px] w-full rounded-xl overflow-hidden bg-slate-200 flex items-center justify-center text-slate-500">
-            Aucun séjour disponible pour le moment.
-          </div>
-        </section>
-      )}
-
-      {/* Entête résultats + toggle mobile */}
-      {count > 0 && (
-        <section className="mx-auto w-full max-w-screen-2xl px-6 pt-2">
-          <div className="flex items-center justify-between">
-            <div className="flex items-baseline gap-3">
-              <h2 className="text-lg md:text-xl font-semibold">À la une</h2>
-              <span className="text-sm text-slate-600">{count} séjours</span>
-            </div>
-
-            {/* Toggle mobile: Liste | Carte */}
-            <div className="md:hidden inline-flex rounded-lg border p-1">
-              {(["list", "map"] as ViewMode[]).map((v) => (
-                <button
-                  key={v}
-                  onClick={() => setView(v)}
-                  className={[
-                    "px-3 py-1.5 text-sm rounded-md",
-                    view === v ? "bg-slate-900 text-white" : "text-slate-700",
-                  ].join(" ")}
-                  aria-pressed={view === v}
-                >
-                  {v === "list" ? "Liste" : "Carte"}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Layout Liste | Carte (map carrée, mêmes hauteurs) */}
-      {count > 0 && (
-        <section className="mx-auto w-full max-w-screen-2xl px-6 pb-8">
-          <div className="md:grid md:grid-cols-[minmax(360px,520px)_1fr] md:gap-4">
-            {/* LISTE : hauteur liée à la carte, scroll interne contrôlé */}
-            <div
-              className={[
-                "overscroll-contain", // évite de scroller la page/la carte
-                view === "map" ? "hidden md:block" : "block",
-                "md:overflow-y-auto",
-              ].join(" ")}
-              style={{ height: mapHeight || fallbackHeight }} // égalise la hauteur avec la carte
+            {/* Logo en haut à gauche */}
+            <Link
+              to="/"
+              className="absolute z-20 top-0 left-2 sm:top-1 sm:left-3 md:top-2 md:left-6
+             w-1/4 sm:w-1/5 md:w-1/5 lg:w-1/6    /* plus large qu'avant */
+             max-w-[360px] min-w-[96px]"         /* bornes de sécurité */
             >
-              <div className="space-y-3 py-4">
-                {filtered.map((stay) => (
-                  <div
-                    key={stay.id}
-                    ref={(el) => { cardRefs.current[stay.id] = el; }}
-                    onClick={() => selectFromList(stay.id)} // sélection au clic seulement
-                  >
-                    <StayCard stay={stay} isActive={selectedId === stay.id} />
+              <img src={logo} alt="EcoStay" className="w-full h-auto" />
+            </Link>
+
+            {/* Décor : Favicon géant à droite, calé sur la hauteur du hero */}
+            <img
+              src={favicon}
+              alt=""
+              aria-hidden="true"
+              className="
+    pointer-events-none select-none
+    absolute right-2 sm:right-4 md:right-8 top-1/2 -translate-y-1/2
+    hidden sm:block                 /* <-- xs supprimé */
+    z-20                            /* au-dessus du voile de bas de hero */
+    h-[58%] sm:h-[64%] md:h-[78%] lg:h-[85%]
+    w-auto
+    opacity-90 drop-shadow-xl
+  "
+            />
+
+
+
+
+
+            {/* voile de lisibilité sur la moitié basse */}
+            <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-b from-transparent to-white/75" />
+
+            {/* grille 2 rangées : contenu bas + chips tout en bas */}
+            <div className="absolute inset-0 grid grid-rows-[1fr_auto]">
+              {/* rangée 1 : bloc titre+recherche */}
+              <div className="flex items-end justify-center px-6">
+                {/* pousse un peu le groupe vers le haut si tu veux */}
+                <div className="w-full max-w-3xl text-center pb-4 md:pb-6 relative -translate-y-4 md:-translate-y-8">
+                  {/* conteneur vertical avec hauteur fixe -> la phrase restera au milieu */}
+                  <div className="flex flex-col items-center justify-between min-h-[160px] md:min-h-[190px] lg:min-h-[210px]">
+                    {/* Titre en haut du bloc */}
+                    <h1 className="text-slate-900 text-2xl md:text-4xl font-semibold">
+                      La référence du séjour alternatif
+                    </h1>
+
+                    {/* Baseline centrée verticalement entre le titre et le form */}
+                    <p className="text-sm md:text-base text-slate-700">
+                      <span className="baseline-shimmer">Prêt·e à partir ? Voyagez autrement.</span>
+                    </p>
+
+                    {/* Barre de recherche en bas du bloc */}
+                    <form onSubmit={onSubmit} className="w-full flex gap-2">
+                      <input
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        placeholder="Titre, ville, code postal, département…"
+                        aria-label="Rechercher un séjour"
+                        className="w-full rounded-xl border bg-white px-4 py-2 text-slate-900 placeholder:text-slate-500"
+                      />
+                      <button
+                        type="submit"
+                        className="rounded-xl bg-emerald-700 px-4 py-2 text-white hover:bg-emerald-800"
+                      >
+                        Explorer
+                      </button>
+                    </form>
                   </div>
-                ))}
+                </div>
               </div>
-            </div>
 
-            {/* CARTE : sticky + aspect carré */}
-            <div
-              className={[
-                "md:sticky md:top-[140px]",
-                view === "list" ? "hidden md:block" : "block mt-3",
-              ].join(" ")}
-            >
-              <div
-                ref={mapBoxRef}
-                className="relative w-full aspect-square rounded-xl overflow-hidden border
-                           min-h-[320px] md:min-h-[420px]"
-              >
-                <div className="absolute inset-0">
-                  <StayMap
-                    stays={filtered}
-                    selectedId={selectedId}
-                    onMarkerClick={selectFromMap}
-                  />
+
+              {/* rangée 2 : étiquettes collées en bas */}
+              <div className="px-4 md:px-8 pb-3">
+                <div className="mx-auto max-w-screen-2xl">
+                  <div className="flex gap-2 overflow-x-auto md:flex-wrap md:justify-center md:overflow-visible">
+                    {(loadingCats ? [] : topCats).map((c: any) => (
+                      <Link
+                        key={c.id}
+                        to={`/decouverte/dormir-autrement?category=${encodeURIComponent(
+                          c.slug
+                        )}`}
+                        className="whitespace-nowrap rounded-full px-3 py-1.5 text-sm
+                                   bg-white text-slate-800 shadow-xl ring-1 ring-black/5
+                                   backdrop-blur hover:-translate-y-0.5 transition"
+                      >
+                        {c.name_fr || c.name_en || c.slug}
+                      </Link>
+                    ))}
+                    {!loadingCats && topCats.length === 0 && (
+                      <span className="rounded-full px-3 py-1.5 text-sm bg-white/70 text-slate-500 ring-1 ring-black/5">
+                        Catégories bientôt disponibles
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </section>
-      )}
+        </div>
 
-      {/* Édito */}
+        {/* espace sous le hero */}
+        <div className="h-6 md:h-8" />
+      </section>
+
+      {/* ===== Séjours à la une ===== */}
+      <section className="mx-auto w-full max-w-screen-2xl px-6 mt-2">
+        <div className="mb-2 flex items-center justify-between">
+          <h2 className="text-lg md:text-xl font-semibold">Séjours à la une</h2>
+          <Link
+            to="/decouverte/dormir-autrement"
+            className="text-sm text-emerald-700 hover:underline"
+          >
+            Voir tous les séjours
+          </Link>
+        </div>
+
+        {isLoading ? (
+          <p className="text-slate-600">Chargement…</p>
+        ) : highlights.length === 0 ? (
+          <div className="rounded-xl bg-slate-100 p-6 text-slate-600">
+            Bientôt des séjours ici !
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {highlights.map((stay) => (
+              <StayCard key={stay.id} stay={stay} />
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* ===== Édito & Mission ===== */}
       <FeaturedStory
         title="Dormir comme il y a 6 000 ans — Cabane néolithique en Bretagne"
-        chapo="Dans les Monts d’Arrée, Lila et Maël ont rebâti une cabane de roseaux, noisetier et torchis. Une nuit ici, c’est le souffle de l’ouest, la bruyère en fleur, et le feu qui rassemble — comme autrefois."
+        chapo="Dans les Monts d’Arrée, Lila et Maël ont rebâti une cabane de roseaux, noisetier et torchis."
         cta={{ label: "Découvrir la cabane", href: "/decouverte/dormir-autrement" }}
         hero={{
           src: menhir,
-          alt: "Cabane néolithique sur la lande des Monts d’Arrée, parois en noisetier tressé, toit de roseaux, menhir dans la brume.",
-          caption:
-            "Cabane néolithique reconstruite en Bretagne — noisetier tressé, torchis d’argile, toit de roseaux, sur la lande des Monts d’Arrée.",
+          alt: "Cabane néolithique sur la lande des Monts d’Arrée.",
+          caption: "Cabane néolithique reconstruite en Bretagne.",
         }}
-        secondary={{
-          src: ensoleillee,
-          alt: "Groupe souriant tressant les parois en noisetier devant une cabane néolithique, lande bretonne ensoleillée.",
-        }}
+        secondary={{ src: ensoleillee, alt: "Atelier participatif en plein air." }}
       />
 
       <MissionTeaser />
 
-      {/* Chiffres clés */}
       <section className="mx-auto max-w-7xl px-4 pb-16">
         <h2 className="text-xl font-semibold text-emerald-700">Chiffres clés</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
