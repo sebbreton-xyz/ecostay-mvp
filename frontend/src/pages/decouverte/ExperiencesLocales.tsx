@@ -17,11 +17,13 @@ export default function ExperiencesLocales() {
 
       {/* À la une */}
       <FeaturedStory
+        layout="side"
         kicker={featured.kicker ?? "À la une"}
         title={featured.title}
         chapo={featured.chapo}
         cta={featured.cta}
         hero={featured.hero}
+        secondary={featured.secondary}
       />
 
       {/* Archive */}
