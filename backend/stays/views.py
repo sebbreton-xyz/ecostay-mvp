@@ -44,7 +44,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
         return Category.objects.annotate(stays_count=Count("stays"))
 
 
-class StayViewSet(viewsets.ModelViewSet):  # mets ReadOnlyModelViewSet si besoin
+class StayViewSet(viewsets.ReadOnlyModelViewSet):  # mets ModelViewSet si besoin
     queryset = Stay.objects.all().order_by("-created_at")
     serializer_class = StaySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
