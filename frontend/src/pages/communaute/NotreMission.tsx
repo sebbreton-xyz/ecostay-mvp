@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function NotreMission() {
   // (optionnel) titre de page
   useEffect(() => {
-    document.title = `${mission.title} — EcoStay`;
+    document.title = `${mission.title} — Verdo`;
   }, []);
 
   return (

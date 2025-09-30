@@ -74,7 +74,7 @@ export default function HomePage() {
              w-1/4 sm:w-1/5 md:w-1/5 lg:w-1/6
              max-w-[360px] min-w-[96px]"
             >
-              <img src={logo} alt="EcoStay" className="w-full h-auto" />
+              <img src={logo} alt="Verdo" className="w-full h-auto" />
             </Link>
 
             {/* Décor : Favicon géant à droite */}

@@ -43,7 +43,7 @@ export const router = createBrowserRouter([
       { path: "/communaute/notre-mission", element: <NotreMission /> },
       { path: "/communaute/contact", element: <Contact /> },
 
-      { path: "/monespace", element: <MonEspace /> },
+      { path: "/mon-espace", element: <MonEspace /> },
     ],
   },
 ]);
