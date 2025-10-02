@@ -1,0 +1,1451 @@
+[
+{
+  "model": "stays.category",
+  "pk": 1,
+  "fields": {
+    "name_fr": "Yourte",
+    "name_en": "Yurt",
+    "slug": "yourte"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 2,
+  "fields": {
+    "name_fr": "Cabane éco",
+    "name_en": "Eco cabin",
+    "slug": "cabane-eco"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 3,
+  "fields": {
+    "name_fr": "Cabane dans les arbres",
+    "name_en": "Treehouse",
+    "slug": "cabane-dans-les-arbres"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 4,
+  "fields": {
+    "name_fr": "Tiny house",
+    "name_en": "Tiny house",
+    "slug": "tiny-house"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 5,
+  "fields": {
+    "name_fr": "Dôme géodésique",
+    "name_en": "Geodesic dome",
+    "slug": "dome-geodesique"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 6,
+  "fields": {
+    "name_fr": "Géonef",
+    "name_en": "Earthship",
+    "slug": "geonef"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 7,
+  "fields": {
+    "name_fr": "Maison de paille",
+    "name_en": "Strawbale house",
+    "slug": "maison-de-paille"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 8,
+  "fields": {
+    "name_fr": "Maison passive",
+    "name_en": "Passive house",
+    "slug": "maison-passive"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 9,
+  "fields": {
+    "name_fr": "Maison conteneur",
+    "name_en": "Container house",
+    "slug": "maison-conteneur"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 10,
+  "fields": {
+    "name_fr": "Gîte éco-labellisé",
+    "name_en": "Eco-labeled cottage",
+    "slug": "gite-eco-labellise"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 11,
+  "fields": {
+    "name_fr": "Eco-lodge",
+    "name_en": "Eco lodge",
+    "slug": "eco-lodge"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 12,
+  "fields": {
+    "name_fr": "Bulle transparente",
+    "name_en": "Bubble tent",
+    "slug": "bulle-transparente"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 13,
+  "fields": {
+    "name_fr": "Roulotte",
+    "name_en": "Gypsy caravan",
+    "slug": "roulotte"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 14,
+  "fields": {
+    "name_fr": "Bateau-maison",
+    "name_en": "Houseboat",
+    "slug": "bateau-maison"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 15,
+  "fields": {
+    "name_fr": "Cabane flottante",
+    "name_en": "Floating cabin",
+    "slug": "cabane-flottante"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 16,
+  "fields": {
+    "name_fr": "Grotte aménagée",
+    "name_en": "Cave home",
+    "slug": "grotte-amenagee"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 17,
+  "fields": {
+    "name_fr": "Maison en pisé",
+    "name_en": "Rammed earth house",
+    "slug": "maison-en-pise"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 18,
+  "fields": {
+    "name_fr": "Ferme régénérative",
+    "name_en": "Regenerative farm stay",
+    "slug": "ferme-regenerative"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 19,
+  "fields": {
+    "name_fr": "Refuge de montagne",
+    "name_en": "Mountain hut",
+    "slug": "refuge-de-montagne"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 20,
+  "fields": {
+    "name_fr": "Hutte safari",
+    "name_en": "Safari tent",
+    "slug": "hutte-safari"
+  }
+},
+{
+  "model": "stays.category",
+  "pk": 21,
+  "fields": {
+    "name_fr": "Autres",
+    "name_en": "Other",
+    "slug": "autres"
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 1,
+  "fields": {
+    "title": "Eco Cabin",
+    "city": "Saint Romain aux Monts d'Or",
+    "price": "120.00",
+    "created_at": "2025-08-28T16:16:40.868Z",
+    "category": 11,
+    "latitude": "45.838600",
+    "longitude": "4.823600",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 2,
+  "fields": {
+    "title": "Tiny House de Laura",
+    "city": "Annecy",
+    "price": "95.00",
+    "created_at": "2025-08-28T16:16:40.878Z",
+    "category": 4,
+    "latitude": "45.899200",
+    "longitude": "6.129600",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 3,
+  "fields": {
+    "title": "Etoiles et silence",
+    "city": "Saint-Véran",
+    "price": "120.00",
+    "created_at": "2025-09-16T13:37:18.597Z",
+    "category": 1,
+    "latitude": "44.708100",
+    "longitude": "6.873600",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 4,
+  "fields": {
+    "title": "Yourte Zen & Bain Nordique",
+    "city": "Salers",
+    "price": "145.00",
+    "created_at": "2025-09-16T13:37:52.604Z",
+    "category": 1,
+    "latitude": "45.136400",
+    "longitude": "2.494400",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 5,
+  "fields": {
+    "title": "Yourte DIY & Artisanat Local",
+    "city": "Die",
+    "price": "105.00",
+    "created_at": "2025-09-16T13:39:04.712Z",
+    "category": 1,
+    "latitude": "44.755300",
+    "longitude": "5.370600",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 6,
+  "fields": {
+    "title": "L'Écho des Étoiles",
+    "city": "Lyon",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.371Z",
+    "category": 21,
+    "latitude": "45.823044",
+    "longitude": "4.837209",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 7,
+  "fields": {
+    "title": "Le Nid Corsaire",
+    "city": "Biarritz",
+    "price": "200.00",
+    "created_at": "2025-09-16T14:56:15.372Z",
+    "category": 14,
+    "latitude": "43.523380",
+    "longitude": "-1.562431",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 8,
+  "fields": {
+    "title": "Transpa'bulles",
+    "city": "Rocamadour",
+    "price": "160.00",
+    "created_at": "2025-09-16T14:56:15.373Z",
+    "category": 12,
+    "latitude": "44.866609",
+    "longitude": "1.646875",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 9,
+  "fields": {
+    "title": "L'Abri des Roches",
+    "city": "Sarlat",
+    "price": "140.00",
+    "created_at": "2025-09-16T14:56:15.373Z",
+    "category": 12,
+    "latitude": "44.918631",
+    "longitude": "1.293404",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 10,
+  "fields": {
+    "title": "La Canopée des Étoiles",
+    "city": "Sarlat",
+    "price": "155.00",
+    "created_at": "2025-09-16T14:56:15.373Z",
+    "category": 3,
+    "latitude": "44.929084",
+    "longitude": "1.255012",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 11,
+  "fields": {
+    "title": "Le Dôme des Étoiles",
+    "city": "Honfleur",
+    "price": "170.00",
+    "created_at": "2025-09-16T14:56:15.373Z",
+    "category": 15,
+    "latitude": "49.367084",
+    "longitude": "0.183788",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 12,
+  "fields": {
+    "title": "Lueurs de l'Eau",
+    "city": "Honfleur",
+    "price": "180.00",
+    "created_at": "2025-09-16T14:56:15.374Z",
+    "category": 15,
+    "latitude": "49.367647",
+    "longitude": "0.178854",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 13,
+  "fields": {
+    "title": "Au Flot des Barques",
+    "city": "Biarritz",
+    "price": "180.00",
+    "created_at": "2025-09-16T14:56:15.374Z",
+    "category": 15,
+    "latitude": "43.545902",
+    "longitude": "-1.540198",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 14,
+  "fields": {
+    "title": "La Cabane de St Antoine",
+    "city": "Strasbourg",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.374Z",
+    "category": 2,
+    "latitude": "48.646208",
+    "longitude": "7.787309",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 15,
+  "fields": {
+    "title": "La Dune des Étoiles",
+    "city": "Bordeaux",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.374Z",
+    "category": 2,
+    "latitude": "44.848921",
+    "longitude": "-0.560265",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 16,
+  "fields": {
+    "title": "Cabane au fil de l'Eau",
+    "city": "Toulouse",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.375Z",
+    "category": 2,
+    "latitude": "43.527354",
+    "longitude": "1.457797",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 17,
+  "fields": {
+    "title": "Le Dôme du Silence",
+    "city": "Montpellier",
+    "price": "135.00",
+    "created_at": "2025-09-16T14:56:15.375Z",
+    "category": 5,
+    "latitude": "43.578350",
+    "longitude": "3.803070",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 18,
+  "fields": {
+    "title": "La Brise des Pins",
+    "city": "Bordeaux",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.375Z",
+    "category": 5,
+    "latitude": "44.762441",
+    "longitude": "-0.540212",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 19,
+  "fields": {
+    "title": "La Lodge de la Forêt",
+    "city": "Montpellier",
+    "price": "135.00",
+    "created_at": "2025-09-16T14:56:15.376Z",
+    "category": 5,
+    "latitude": "43.557827",
+    "longitude": "3.797892",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 20,
+  "fields": {
+    "title": "La Hutte des Pins",
+    "city": "Sarlat",
+    "price": "185.00",
+    "created_at": "2025-09-16T14:56:15.376Z",
+    "category": 11,
+    "latitude": "44.838671",
+    "longitude": "1.245669",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 21,
+  "fields": {
+    "title": "L’Horizon des Roches",
+    "city": "Luberon",
+    "price": "95.00",
+    "created_at": "2025-09-16T14:56:15.376Z",
+    "category": 18,
+    "latitude": "43.855234",
+    "longitude": "5.312848",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 22,
+  "fields": {
+    "title": "La Retraite des Étoiles",
+    "city": "Rocamadour",
+    "price": "125.00",
+    "created_at": "2025-09-16T14:56:15.376Z",
+    "category": 16,
+    "latitude": "44.766010",
+    "longitude": "1.649317",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 23,
+  "fields": {
+    "title": "La Retraite d'Eol",
+    "city": "Luberon",
+    "price": "115.00",
+    "created_at": "2025-09-16T14:56:15.377Z",
+    "category": 16,
+    "latitude": "43.768830",
+    "longitude": "5.329991",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 24,
+  "fields": {
+    "title": "L'Horizon du Levant",
+    "city": "Rocamadour",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.377Z",
+    "category": 16,
+    "latitude": "44.772183",
+    "longitude": "1.663117",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 25,
+  "fields": {
+    "title": "L'Écume des Alizés",
+    "city": "Rocamadour",
+    "price": "170.00",
+    "created_at": "2025-09-16T14:56:15.377Z",
+    "category": 6,
+    "latitude": "44.851596",
+    "longitude": "1.626905",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 26,
+  "fields": {
+    "title": "L’Horizon du Silence",
+    "city": "Rocamadour",
+    "price": "180.00",
+    "created_at": "2025-09-16T14:56:15.377Z",
+    "category": 6,
+    "latitude": "44.874010",
+    "longitude": "1.583040",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 27,
+  "fields": {
+    "title": "La Canopée du Silence",
+    "city": "Rocamadour",
+    "price": "185.00",
+    "created_at": "2025-09-16T14:56:15.378Z",
+    "category": 6,
+    "latitude": "44.725763",
+    "longitude": "1.694076",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 28,
+  "fields": {
+    "title": "Clairière du Mont d'Argent",
+    "city": "Lyon",
+    "price": "85.00",
+    "created_at": "2025-09-16T14:56:15.378Z",
+    "category": 10,
+    "latitude": "45.764342",
+    "longitude": "4.887586",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 29,
+  "fields": {
+    "title": "L’Écume des Pins",
+    "city": "Bordeaux",
+    "price": "85.00",
+    "created_at": "2025-09-16T14:56:15.378Z",
+    "category": 10,
+    "latitude": "44.803833",
+    "longitude": "-0.646367",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 30,
+  "fields": {
+    "title": "Les Nids de la Forêt",
+    "city": "Montpellier",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.378Z",
+    "category": 10,
+    "latitude": "43.623281",
+    "longitude": "3.899581",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 31,
+  "fields": {
+    "title": "Le Ruisseau des Alizés",
+    "city": "Rocamadour",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.379Z",
+    "category": 20,
+    "latitude": "44.782914",
+    "longitude": "1.596194",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 32,
+  "fields": {
+    "title": "Canopée des Étoiles",
+    "city": "Sarlat",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.379Z",
+    "category": 20,
+    "latitude": "44.833835",
+    "longitude": "1.286467",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 33,
+  "fields": {
+    "title": "Refuge du Val",
+    "city": "Sarlat",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.379Z",
+    "category": 20,
+    "latitude": "44.901777",
+    "longitude": "1.250865",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 34,
+  "fields": {
+    "title": "Les Clairières du Val",
+    "city": "Lyon",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.379Z",
+    "category": 9,
+    "latitude": "45.815079",
+    "longitude": "4.914586",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 35,
+  "fields": {
+    "title": "Maison des Dunes",
+    "city": "Bordeaux",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.380Z",
+    "category": 9,
+    "latitude": "44.826132",
+    "longitude": "-0.568455",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 36,
+  "fields": {
+    "title": "Haute-Vue des Étoiles",
+    "city": "Strasbourg",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.380Z",
+    "category": 9,
+    "latitude": "48.575602",
+    "longitude": "7.816028",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 37,
+  "fields": {
+    "title": "Le Nid des Alizés",
+    "city": "Luberon",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.380Z",
+    "category": 7,
+    "latitude": "43.908057",
+    "longitude": "5.353843",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 38,
+  "fields": {
+    "title": "L'Horizon du Val",
+    "city": "Rocamadour",
+    "price": "115.00",
+    "created_at": "2025-09-16T14:56:15.380Z",
+    "category": 7,
+    "latitude": "44.752718",
+    "longitude": "1.566450",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 39,
+  "fields": {
+    "title": "L'Épine du Levant",
+    "city": "Sarlat",
+    "price": "115.00",
+    "created_at": "2025-09-16T14:56:15.381Z",
+    "category": 7,
+    "latitude": "44.847460",
+    "longitude": "1.209702",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 40,
+  "fields": {
+    "title": "Les Ruisseau des Alizés",
+    "city": "Rocamadour",
+    "price": "150.00",
+    "created_at": "2025-09-16T14:56:15.381Z",
+    "category": 17,
+    "latitude": "44.776733",
+    "longitude": "1.653228",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 41,
+  "fields": {
+    "title": "La Maison des Étoiles",
+    "city": "Sarlat",
+    "price": "135.00",
+    "created_at": "2025-09-16T14:56:15.381Z",
+    "category": 17,
+    "latitude": "44.893004",
+    "longitude": "1.231447",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 42,
+  "fields": {
+    "title": "L’Écho de la Forêt",
+    "city": "Rocamadour",
+    "price": "125.00",
+    "created_at": "2025-09-16T14:56:15.381Z",
+    "category": 17,
+    "latitude": "44.829945",
+    "longitude": "1.596628",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 43,
+  "fields": {
+    "title": "La Cabane des Roches",
+    "city": "Strasbourg",
+    "price": "155.00",
+    "created_at": "2025-09-16T14:56:15.382Z",
+    "category": 8,
+    "latitude": "48.525494",
+    "longitude": "7.767351",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 44,
+  "fields": {
+    "title": "La Bergerie",
+    "city": "Annecy",
+    "price": "95.00",
+    "created_at": "2025-09-16T14:56:15.382Z",
+    "category": 19,
+    "latitude": "45.826834",
+    "longitude": "6.062719",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 45,
+  "fields": {
+    "title": "L'amie des Étoiles",
+    "city": "Montpellier",
+    "price": "95.00",
+    "created_at": "2025-09-16T14:56:15.382Z",
+    "category": 13,
+    "latitude": "43.644581",
+    "longitude": "3.891472",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 46,
+  "fields": {
+    "title": "La Roulotte Bleue",
+    "city": "Toulouse",
+    "price": "85.00",
+    "created_at": "2025-09-16T14:56:15.383Z",
+    "category": 13,
+    "latitude": "43.646360",
+    "longitude": "1.452595",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 47,
+  "fields": {
+    "title": "Le Ruisseau des Étoiles",
+    "city": "Lyon",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.383Z",
+    "category": 13,
+    "latitude": "45.779576",
+    "longitude": "4.888799",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 48,
+  "fields": {
+    "title": "L’Écume des Roches",
+    "city": "Montpellier",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.383Z",
+    "category": 4,
+    "latitude": "43.633347",
+    "longitude": "3.843249",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 49,
+  "fields": {
+    "title": "Brise des Étoiles",
+    "city": "Toulouse",
+    "price": "110.00",
+    "created_at": "2025-09-16T14:56:15.383Z",
+    "category": 4,
+    "latitude": "43.555475",
+    "longitude": "1.369878",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 50,
+  "fields": {
+    "title": "La Maison de Bertha",
+    "city": "Toulouse",
+    "price": "115.00",
+    "created_at": "2025-09-16T14:56:15.384Z",
+    "category": 4,
+    "latitude": "43.560735",
+    "longitude": "1.419456",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 51,
+  "fields": {
+    "title": "Le Ruisseau du Levant",
+    "city": "Strasbourg",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.531Z",
+    "category": 21,
+    "latitude": "48.586038",
+    "longitude": "7.714293",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 52,
+  "fields": {
+    "title": "La Hutte des Pins",
+    "city": "Honfleur",
+    "price": "195.00",
+    "created_at": "2025-09-16T14:56:15.532Z",
+    "category": 14,
+    "latitude": "49.377890",
+    "longitude": "0.282692",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 53,
+  "fields": {
+    "title": "L'Ermitage des Alizés",
+    "city": "Biarritz",
+    "price": "175.00",
+    "created_at": "2025-09-16T14:56:15.532Z",
+    "category": 14,
+    "latitude": "43.512082",
+    "longitude": "-1.514269",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 54,
+  "fields": {
+    "title": "L'Écume du Val",
+    "city": "Sarlat",
+    "price": "140.00",
+    "created_at": "2025-09-16T14:56:15.533Z",
+    "category": 12,
+    "latitude": "44.941589",
+    "longitude": "1.188241",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 55,
+  "fields": {
+    "title": "La Clairière des Alizés",
+    "city": "Rocamadour",
+    "price": "165.00",
+    "created_at": "2025-09-16T14:56:15.533Z",
+    "category": 12,
+    "latitude": "44.811400",
+    "longitude": "1.565576",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 56,
+  "fields": {
+    "title": "Les Rocs de la Forêt",
+    "city": "Rocamadour",
+    "price": "155.00",
+    "created_at": "2025-09-16T14:56:15.533Z",
+    "category": 12,
+    "latitude": "44.850691",
+    "longitude": "1.586440",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 57,
+  "fields": {
+    "title": "Clairière du Levant",
+    "city": "Rocamadour",
+    "price": "175.00",
+    "created_at": "2025-09-16T14:56:15.534Z",
+    "category": 3,
+    "latitude": "44.870214",
+    "longitude": "1.672113",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 58,
+  "fields": {
+    "title": "L’Épine des Roches",
+    "city": "Biarritz",
+    "price": "180.00",
+    "created_at": "2025-09-16T14:56:15.534Z",
+    "category": 15,
+    "latitude": "43.544154",
+    "longitude": "-1.630216",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 59,
+  "fields": {
+    "title": "Paille des Roches",
+    "city": "Biarritz",
+    "price": "175.00",
+    "created_at": "2025-09-16T14:56:15.534Z",
+    "category": 15,
+    "latitude": "43.530643",
+    "longitude": "-1.588239",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 60,
+  "fields": {
+    "title": "Haute-Vue des Étoiles",
+    "city": "Montpellier",
+    "price": "125.00",
+    "created_at": "2025-09-16T14:56:15.534Z",
+    "category": 2,
+    "latitude": "43.545575",
+    "longitude": "3.879568",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 61,
+  "fields": {
+    "title": "La Haute-Vue des Alizés",
+    "city": "Bordeaux",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.535Z",
+    "category": 2,
+    "latitude": "44.854826",
+    "longitude": "-0.529075",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 62,
+  "fields": {
+    "title": "Les Lodges de la Forêt",
+    "city": "Montpellier",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.535Z",
+    "category": 2,
+    "latitude": "43.686495",
+    "longitude": "3.897299",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 63,
+  "fields": {
+    "title": "La Hutte du Levant",
+    "city": "Lyon",
+    "price": "140.00",
+    "created_at": "2025-09-16T14:56:15.535Z",
+    "category": 5,
+    "latitude": "45.785466",
+    "longitude": "4.853226",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 64,
+  "fields": {
+    "title": "Le Roc du Levant",
+    "city": "Luberon",
+    "price": "170.00",
+    "created_at": "2025-09-16T14:56:15.536Z",
+    "category": 11,
+    "latitude": "43.892612",
+    "longitude": "5.325137",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 65,
+  "fields": {
+    "title": "Les Nid des Alizés",
+    "city": "Rocamadour",
+    "price": "160.00",
+    "created_at": "2025-09-16T14:56:15.536Z",
+    "category": 11,
+    "latitude": "44.756986",
+    "longitude": "1.680635",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 66,
+  "fields": {
+    "title": "La Retraite de la Forêt",
+    "city": "Sarlat",
+    "price": "165.00",
+    "created_at": "2025-09-16T14:56:15.536Z",
+    "category": 11,
+    "latitude": "44.854036",
+    "longitude": "1.208030",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 67,
+  "fields": {
+    "title": "La Maison de la Forêt",
+    "city": "Rocamadour",
+    "price": "95.00",
+    "created_at": "2025-09-16T14:56:15.536Z",
+    "category": 18,
+    "latitude": "44.853637",
+    "longitude": "1.550367",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 68,
+  "fields": {
+    "title": "L'Horizon de la Forêt",
+    "city": "Rocamadour",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.537Z",
+    "category": 18,
+    "latitude": "44.864387",
+    "longitude": "1.600811",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 69,
+  "fields": {
+    "title": "La Cabane du Val",
+    "city": "Rocamadour",
+    "price": "95.00",
+    "created_at": "2025-09-16T14:56:15.537Z",
+    "category": 18,
+    "latitude": "44.776417",
+    "longitude": "1.548138",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 70,
+  "fields": {
+    "title": "L'Abri des Roches",
+    "city": "Luberon",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.537Z",
+    "category": 16,
+    "latitude": "43.859764",
+    "longitude": "5.233232",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 71,
+  "fields": {
+    "title": "La Clairière des Étoiles",
+    "city": "Sarlat",
+    "price": "120.00",
+    "created_at": "2025-09-16T14:56:15.537Z",
+    "category": 16,
+    "latitude": "44.956294",
+    "longitude": "1.196595",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 72,
+  "fields": {
+    "title": "L'Epine des Pins",
+    "city": "Rocamadour",
+    "price": "195.00",
+    "created_at": "2025-09-16T14:56:15.538Z",
+    "category": 6,
+    "latitude": "44.825703",
+    "longitude": "1.545085",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 73,
+  "fields": {
+    "title": "La Retraite du Val",
+    "city": "Montpellier",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.538Z",
+    "category": 10,
+    "latitude": "43.652140",
+    "longitude": "3.899500",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 74,
+  "fields": {
+    "title": "La Canopée",
+    "city": "Montpellier",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.538Z",
+    "category": 10,
+    "latitude": "43.550166",
+    "longitude": "3.843590",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 75,
+  "fields": {
+    "title": "Ruisseau du Levant",
+    "city": "Strasbourg",
+    "price": "80.00",
+    "created_at": "2025-09-16T14:56:15.538Z",
+    "category": 10,
+    "latitude": "48.653316",
+    "longitude": "7.672139",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 76,
+  "fields": {
+    "title": "La Maison des Roches",
+    "city": "Rocamadour",
+    "price": "115.00",
+    "created_at": "2025-09-16T14:56:15.539Z",
+    "category": 20,
+    "latitude": "44.816059",
+    "longitude": "1.629335",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 77,
+  "fields": {
+    "title": "La Cabane du Levant",
+    "city": "Montpellier",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.539Z",
+    "category": 9,
+    "latitude": "43.622362",
+    "longitude": "3.862800",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 78,
+  "fields": {
+    "title": "Le Lodge du Silence",
+    "city": "Luberon",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.539Z",
+    "category": 7,
+    "latitude": "43.833125",
+    "longitude": "5.241450",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 79,
+  "fields": {
+    "title": "Le Nid des Pins",
+    "city": "Sarlat",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.539Z",
+    "category": 7,
+    "latitude": "44.898013",
+    "longitude": "1.207320",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 80,
+  "fields": {
+    "title": "L’Ermitage des Étoiles",
+    "city": "Sarlat",
+    "price": "150.00",
+    "created_at": "2025-09-16T14:56:15.540Z",
+    "category": 17,
+    "latitude": "44.875787",
+    "longitude": "1.173235",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 81,
+  "fields": {
+    "title": "L’Abri du Silence",
+    "city": "Luberon",
+    "price": "130.00",
+    "created_at": "2025-09-16T14:56:15.540Z",
+    "category": 17,
+    "latitude": "43.815938",
+    "longitude": "5.308134",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 82,
+  "fields": {
+    "title": "La Clairière du Val",
+    "city": "Toulouse",
+    "price": "135.00",
+    "created_at": "2025-09-16T14:56:15.540Z",
+    "category": 8,
+    "latitude": "43.661885",
+    "longitude": "1.496673",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 83,
+  "fields": {
+    "title": "La Retraite des Étoiles",
+    "city": "Bordeaux",
+    "price": "145.00",
+    "created_at": "2025-09-16T14:56:15.540Z",
+    "category": 8,
+    "latitude": "44.874621",
+    "longitude": "-0.620496",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 84,
+  "fields": {
+    "title": "Les Cabanes de la Forêt",
+    "city": "Annecy",
+    "price": "80.00",
+    "created_at": "2025-09-16T14:56:15.541Z",
+    "category": 19,
+    "latitude": "45.839946",
+    "longitude": "6.156914",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 85,
+  "fields": {
+    "title": "Le Nid du Levant",
+    "city": "Chamonix",
+    "price": "75.00",
+    "created_at": "2025-09-16T14:56:15.541Z",
+    "category": 19,
+    "latitude": "45.963097",
+    "longitude": "6.929062",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 86,
+  "fields": {
+    "title": "L'Épine du Levant",
+    "city": "Montpellier",
+    "price": "105.00",
+    "created_at": "2025-09-16T14:56:15.541Z",
+    "category": 13,
+    "latitude": "43.600778",
+    "longitude": "3.818690",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 87,
+  "fields": {
+    "title": "La Maison des Roches",
+    "city": "Montpellier",
+    "price": "80.00",
+    "created_at": "2025-09-16T14:56:15.542Z",
+    "category": 13,
+    "latitude": "43.592200",
+    "longitude": "3.949250",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 88,
+  "fields": {
+    "title": "Haute-Vue du Silence",
+    "city": "Toulouse",
+    "price": "110.00",
+    "created_at": "2025-09-16T14:56:15.542Z",
+    "category": 4,
+    "latitude": "43.658965",
+    "longitude": "1.419093",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 89,
+  "fields": {
+    "title": "La Cabane du Val",
+    "city": "Strasbourg",
+    "price": "110.00",
+    "created_at": "2025-09-16T14:56:15.542Z",
+    "category": 4,
+    "latitude": "48.629974",
+    "longitude": "7.749747",
+    "is_demo": true
+  }
+},
+{
+  "model": "stays.stay",
+  "pk": 90,
+  "fields": {
+    "title": "L’Écume des Jours",
+    "city": "Strasbourg",
+    "price": "100.00",
+    "created_at": "2025-09-16T14:56:15.543Z",
+    "category": 4,
+    "latitude": "48.658973",
+    "longitude": "7.772133",
+    "is_demo": true
+  }
+}
+]
