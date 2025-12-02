@@ -13,7 +13,7 @@ import L from "leaflet";
 import type { Marker as LeafletMarker } from "leaflet";
 import type { Stay } from "@/types/stay";
 
-// ✅ Icône rond vert avec contour blanc
+// Icône rond vert avec contour blanc
 const greenCircleIcon = L.icon({
   iconUrl: `data:image/svg+xml;utf8,
     <svg xmlns='http://www.w3.org/2000/svg' width='40' height='40'>
@@ -135,7 +135,7 @@ export default function StayMap({ stays, selectedId, onMarkerClick }: Props) {
     <MapContainer
       center={initialCenter}
       zoom={6}
-      className="w-full h-full"      // ⬅️ remplit le parent carré
+      className="w-full h-full"      // remplit le parent carré
       scrollWheelZoom={false}        // activé/désactivé au survol
     >
       <TileLayer

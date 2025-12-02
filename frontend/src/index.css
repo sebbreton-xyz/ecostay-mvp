@@ -1,9 +1,9 @@
 /* Tailwind v4 */
 @import "tailwindcss";
-/* Si tu utilises .prose, active le plugin v4 ici : */
+/* Si j'utilises .prose, active le plugin v4 ici : */
 @plugin "@tailwindcss/typography";
 
-/* Tes utilitaires globaux */
+/* Utilitaires globaux */
 @layer components {
   .app-container {
     @apply mx-auto w-full max-w-screen-2xl px-6;

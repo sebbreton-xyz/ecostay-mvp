@@ -2,6 +2,7 @@
 from django.db import models
 from django.utils.text import slugify
 
+
 class Category(models.Model):
     name_fr = models.CharField(max_length=120, unique=True)
     name_en = models.CharField(max_length=120, blank=True)
@@ -26,15 +27,18 @@ class Stay(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     category = models.ForeignKey(
-        Category, null=True, blank=True,
-        on_delete=models.SET_NULL, related_name="stays"
+        Category, null=True, blank=True, on_delete=models.SET_NULL, related_name="stays"
     )
 
-    # ✅ pour la carte
-    latitude  = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    # pour la carte
+    latitude = models.DecimalField(
+        max_digits=9, decimal_places=6, null=True, blank=True
+    )
+    longitude = models.DecimalField(
+        max_digits=9, decimal_places=6, null=True, blank=True
+    )
 
-    # ✅ badge démo
+    # badge démo
     is_demo = models.BooleanField(default=False)
 
     def __str__(self):

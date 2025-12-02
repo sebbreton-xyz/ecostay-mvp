@@ -32,7 +32,7 @@ export default function NotreMission() {
 
           <div className="mt-4">
             <Link
-              to="/communaute" // ⚠️ crée la route /communaute ou change la cible si besoin
+              to="/communaute" // Change la cible si besoin
               className="inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2
                          font-medium !text-white no-underline hover:bg-emerald-700
                          focus-visible:outline-none focus-visible:ring-2
@@ -55,7 +55,7 @@ export default function NotreMission() {
       prose-img:rounded-xl prose-figcaption:text-sm prose-figcaption:text-slate-500
     "
         >
-          {/* ton contenu long */}
+        
         </article>
       </main>
 

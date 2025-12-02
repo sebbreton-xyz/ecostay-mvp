@@ -5,7 +5,7 @@ import ensoleillee from "@/assets/bretagne/cabane-ensoleillee.png";
 import SolarCuisine from "@/assets/SolarCuisine.jpg";
 
 export const localStories: Story[] = [
-    // 💡 NOUVELLE "À LA UNE"
+    // NOUVELLE "À LA UNE"
     {
         id: 1,
         slug: "nuit-aux-lucioles-cuisine-solaire",
@@ -48,7 +48,7 @@ export const localStories: Story[] = [
         ],
     },
 
-    // 🗂️ ARCHIVE — ancienne À la une (Home)
+    // ARCHIVE — ancienne À la une (Home)
     {
         id: 2,
         slug: "archive-ancienne-a-la-une-sept-2025",

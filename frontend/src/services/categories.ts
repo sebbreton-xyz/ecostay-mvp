@@ -1,22 +1,4 @@
 // src/services/categories.ts
-// import { api } from "@/lib/api";
-// import type { Category } from "@/types/category";
-
-// export async function getAllCategories(): Promise<Category[]> {
-//   const { data } = await api.get<Category[]>("/categories/");
-//   return data;
-// }
-
-// import { api } from "@/lib/api";
-// import type { Category } from "@/types/category";
-
-// export async function getAllCategories(): Promise<Category[]> {
-//   const { data } = await api.get("/categories/");
-//   return (Array.isArray(data) ? data : data?.results ?? []) as Category[];
-// }
-
-// src/services/categories.ts
-// src/services/categories.ts
 import { api } from "@/lib/api";
 import type { Category } from "@/types/category";
 

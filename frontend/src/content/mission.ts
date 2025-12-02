@@ -14,7 +14,7 @@ export const mission = {
     cta: { label: "Lire la mission", href: "/communaute/notre-mission" },
 
     hero: {
-        src: heroImg,  // ✅ on passe la variable importée
+        src: heroImg,  // On passe la variable importée
         alt: "",       // décoratif ici (le titre/chapô portent le sens)
     },
 };

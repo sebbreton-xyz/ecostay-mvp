@@ -11,7 +11,6 @@ export type Stay = {
     // Anticipation pour la carte (plus tard) :
     latitude?: number | null;
     longitude?: number | null;
-    categories?: Category[] | number[]; // selon ce que renvoie ton serializer DRF
+    categories?: Category[] | number[]; // selon ce que renvoie le serializer DRF
     is_demo?: boolean;
-    // Si l’API expose d’autres champs, on les ajoutera ici
 };
